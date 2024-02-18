@@ -45,10 +45,10 @@ jobs:
         if: steps.changed-ignored.outputs.only_modified == 'false'
       - run: npm ci
         if: steps.changed-ignored.outputs.only_modified == 'false'
-
+      - run: sudo npm install --global cross-env
       - name: Run tests
         uses: koenhagen/measure-energy-action@v0.30
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: npm test
-          count: 30
+          count: 10
