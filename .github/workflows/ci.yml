@@ -2,9 +2,6 @@ name: 'CI'
 
 on:
   push:
-    branches: '**'
-  pull_request:
-    branches: '**'
 
 permissions:
   contents: read
@@ -48,5 +45,10 @@ jobs:
         if: steps.changed-ignored.outputs.only_modified == 'false'
       - run: npm ci
         if: steps.changed-ignored.outputs.only_modified == 'false'
-      - run: npm test
-        if: steps.changed-ignored.outputs.only_modified == 'false'
+
+      - name: Run tests
+        uses: koenhagen/measure-energy-action@v0.30
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: npm test
+          count: 30
